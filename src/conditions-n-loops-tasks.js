@@ -24,11 +24,12 @@
  *  -5 => false
  */
 function isPositive(number) {
-  throw new Error('Not implemented');
+  return number >= 0;
 }
 
 /**
  * Returns the maximum of three numbers without using Array and Math classes methods.
+ * Возвращает максимум из трех чисел без использования методов Array и Math classes.
  *
  * @param {number} a - The first number.
  * @param {number} b - The second number.
@@ -40,12 +41,20 @@ function isPositive(number) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let maxNumb = a;
+  if (b > maxNumb) {
+    maxNumb = b;
+  }
+  if (c > maxNumb) {
+    maxNumb = c;
+  }
+  return maxNumb;
 }
 
 /**
  * Checks if a queen can capture a king in the next move on an 8x8 chessboard.
+ * Проверяет, сможет ли ферзь захватить короля следующим ходом на шахматной доске 8х8.
  * See more details at https://en.wikipedia.org/wiki/Queen_(chess)
  *
  * @typedef {{
@@ -62,13 +71,22 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (
+    king.x === queen.x ||
+    king.y === queen.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
  * Determines whether a triangle is isosceles based on its side lengths.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Определяет, является ли треугольник равнобедренным, исходя из длины его сторон.
+ * В этой задаче использование методов классов String и Array запрещено.
  *
  * @param {number} a - The length of the first side.
  * @param {number} b - The length of the second side.
@@ -84,8 +102,9 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  const isoscelTriangle = a + b > c && a + c > b && b + c > a;
+  return isoscelTriangle && (a === b || a === c || b === c);
 }
 
 /**
