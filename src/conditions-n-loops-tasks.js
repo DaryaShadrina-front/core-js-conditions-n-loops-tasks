@@ -110,9 +110,11 @@ function isIsoscelesTriangle(a, b, c) {
 /**
  * Converts a number to Roman numerals. The number will be between 1 and 39.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Преобразует число в римскую нумерацию. Число будет находиться в диапазоне от 1 до 39.
+ * В этом задании не допускается использование методов классов String и Array.
  *
  * @param {number} num - The number to convert.
- * @return {string} The Roman numeral representation of the number.
+ * @return {string} The Roman numeral representation of the number
  *
  * @example:
  *  1   => I
@@ -121,13 +123,32 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romanNumber = [
+    { roman: 'X', arabic: 10 },
+    { roman: 'IX', arabic: 9 },
+    { roman: 'V', arabic: 5 },
+    { roman: 'IV', arabic: 4 },
+    { roman: 'I', arabic: 1 },
+  ];
+  let roman = '';
+  let numCyc = num;
+
+  for (let i = 0; i < romanNumber.length; i += 1) {
+    while (numCyc >= romanNumber[i].arabic) {
+      roman += romanNumber[i].roman;
+      numCyc -= romanNumber[i].arabic;
+    }
+  }
+
+  return roman;
 }
 
 /**
  * Converts a number to a string, replacing digits with words.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Преобразует число в строку, заменяя цифры словами.
+ * В этой задаче не допускается использование методов классов String и Array.
  *
  * @param {string} numberStr - The number as a string.
  * @return {string} The number with digits replaced by words.
@@ -140,8 +161,59 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let wordsStr = '';
+
+  for (let i = 0; i < numberStr.length; i += 1) {
+    const digital = numberStr[i];
+    switch (digital) {
+      case '0':
+        wordsStr += 'zero';
+        break;
+      case '1':
+        wordsStr += 'one';
+        break;
+      case '2':
+        wordsStr += 'two';
+        break;
+      case '3':
+        wordsStr += 'three';
+        break;
+      case '4':
+        wordsStr += 'four';
+        break;
+      case '5':
+        wordsStr += 'five';
+        break;
+      case '6':
+        wordsStr += 'six';
+        break;
+      case '7':
+        wordsStr += 'seven';
+        break;
+      case '8':
+        wordsStr += 'eight';
+        break;
+      case '9':
+        wordsStr += 'nine';
+        break;
+      case '-':
+        wordsStr += 'minus';
+        break;
+      case '.':
+        wordsStr += 'point';
+        break;
+      case ',':
+        wordsStr += 'point';
+        break;
+      default:
+        break;
+    }
+
+    if (i !== numberStr.length - 1) wordsStr += ' ';
+  }
+
+  return wordsStr;
 }
 
 /**
