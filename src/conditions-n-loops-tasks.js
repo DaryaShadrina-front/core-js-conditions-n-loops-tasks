@@ -219,6 +219,8 @@ function convertNumberToString(numberStr) {
 /**
  * Determines whether a string is a palindrome.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Определяет, является ли строка палиндромом.
+ * В этой задаче использование методов классов String и Array запрещено.
  *
  * @param {string} str - The string to check.
  * @return {boolean} True if the string is a palindrome, false otherwise.
@@ -228,13 +230,19 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  for (let i = 0; i < str.length / 2; i += 1) {
+    if (str[i] !== str[str.length - i - 1]) return false;
+  }
+
+  return true;
 }
 
 /**
  * Finds the first occurrence of a letter in a string.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Находит первое вхождение буквы в строку.
+ * В этой задаче использование методов классов String и Array не допускается.
  *
  * @param {string} str - The string to search.
  * @param {string} letter - The letter to find.
@@ -246,13 +254,20 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
  * Checks if a number contains a specific digit.
  * In this task, the use of methods of the String and Array classes is not allowed.
+ * Проверяет, содержит ли число определенную цифру.
+ * В этой задаче использование методов классов String и Array запрещено.
  *
  * @param {number} num - The number to check.
  * @param {number} digit - The digit to search for.
@@ -265,14 +280,24 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let numStr = Math.abs(num);
+  while (numStr > 0) {
+    if (numStr % 10 === digit) {
+      return true;
+    }
+    numStr = Math.floor(numStr / 10);
+  }
+  return false;
 }
 
 /**
  * Finds the index of an element in an array where the sum of elements to the left equals the sum of elements to the right.
  * If such an index does not return -1.
  * In this task, the use of methods of the Array and String classes is not allowed.
+ * Находит индекс элемента в массиве, где сумма элементов слева равна сумме элементов справа.
+ * Если такой индекс не возвращает значение -1.
+ * В этой задаче использование методов классов Array и String не допускается.
  *
  * @param {number[]} arr - The array to check.
  * @return {number} The index of the balance point, or -1 if none exists.
@@ -282,14 +307,29 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let leftSum = 0;
+  let rightSum = 0;
+  for (let i = 1; i < arr.length; i += 1) {
+    rightSum += arr[i];
+  }
+  for (let i = 0; i < arr.length; i += 1) {
+    if (leftSum === rightSum) {
+      return i;
+    }
+    leftSum += arr[i];
+    rightSum -= arr[i + 1];
+  }
+  return -1;
 }
 
 /**
  * Generates a spiral matrix of a given size, filled with numbers in ascending order starting from one.
  * The direction of filling with numbers is clockwise.
  * Usage of String and Array classes methods is not allowed in this task.
+ * Генерирует спиральную матрицу заданного размера, заполненную числами в порядке возрастания, начиная с единицы.
+ * Направление заполнения числами - по часовой стрелке.
+ * Использование методов классов String и Array в этой задаче запрещено.
  *
  * @param {number} size - The size of the matrix.
  * @return {number[][]} The spiral matrix.
@@ -315,6 +355,9 @@ function getSpiralMatrix(/* size */) {
  * Rotates a matrix by 90 degrees clockwise in place.
  * Take into account that the matrix size can be very large. Consider how you can optimize your solution.
  * Usage of String and Array class methods is not allowed in this task.
+ * Поворачивает матрицу на 90 градусов по часовой стрелке.
+ * Примите во внимание, что размер матрицы может быть очень большим. Подумайте, как вы можете оптимизировать свое решение.
+ * В этой задаче запрещено использование методов классов String и Array.
  *
  * @param {number[][]} matrix - The matrix to rotate.
  * @return {number[][]} The rotated matrix.
@@ -326,8 +369,23 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const numMatr = matrix;
+  const n = numMatr.length;
+  for (let i = 0; i < n; i += 1) {
+    for (let j = i; j < n; j += 1) {
+      [numMatr[i][j], numMatr[j][i]] = [numMatr[j][i], numMatr[i][j]];
+    }
+  }
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < Math.floor(n / 2); j += 1) {
+      [numMatr[i][j], numMatr[i][n - 1 - j]] = [
+        numMatr[i][n - 1 - j],
+        numMatr[i][j],
+      ];
+    }
+  }
+  return numMatr;
 }
 
 /**
