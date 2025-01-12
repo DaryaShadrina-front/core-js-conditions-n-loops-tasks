@@ -393,6 +393,10 @@ function rotateMatrix(matrix) {
  * Employ any sorting algorithm of your choice.
  * Take into account that the array can be very large. Consider how you can optimize your solution.
  * In this task, the use of methods of the Array and String classes is not allowed.
+ * Сортирует массив чисел по возрастанию на месте.
+ * Используйте любой алгоритм сортировки по вашему выбору.
+ * Примите во внимание, что массив может быть очень большим. Подумайте, как вы можете оптимизировать свое решение.
+ * В данной задаче использование методов классов Array и String не допускается.
  *
  * @param {number[]} arr - The array to sort.
  * @return {number[]} The sorted array.
@@ -402,14 +406,31 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const sortArr = arr;
+
+  for (let i = 0; i < sortArr.length; i += 1) {
+    const current = sortArr[i];
+    let temp = i - 1;
+
+    while (temp >= 0 && sortArr[temp] > current) {
+      sortArr[temp + 1] = sortArr[temp];
+      temp -= 1;
+    }
+
+    sortArr[temp + 1] = current;
+  }
+
+  return sortArr;
 }
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
  * Take into account that the string can be very long and the number of iterations is large. Consider how you can optimize your solution.
  * Usage of Array class methods is not allowed in this task.
+ * Перетасовывает символы в строке таким образом, чтобы символы с нечетным индексом перемещались в конец строки на каждой итерации.
+ * Примите во внимание, что строка может быть очень длинной, а количество итераций - большим. Подумайте, как вы можете оптимизировать свое решение.
+ * В этой задаче запрещено использование методов класса Array.
  *
  * @param {string} str - The string to shuffle.
  * @param {number} iterations - The number of iterations to perform the shuffle.
@@ -423,14 +444,44 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  if (iterations <= 0) return str;
+
+  let existingStr = str;
+  let countedIteration = iterations;
+
+  while (countedIteration > 0) {
+    let even = '';
+    let noteven = '';
+
+    let i = 0;
+    while (i < existingStr.length) {
+      if (i % 2 === 0) {
+        even += existingStr[i];
+      } else {
+        noteven += existingStr[i];
+      }
+      i += 1;
+    }
+
+    existingStr = even + noteven;
+    countedIteration -= 1;
+
+    if (existingStr === str) {
+      const cycleIteration = iterations - countedIteration;
+      countedIteration = iterations % cycleIteration;
+    }
+  }
+  return existingStr;
 }
 
 /**
  * Returns the nearest largest integer consisting of the digits of the given positive integer.
  * If there is no such number, it returns the original number.
  * Usage of String class methods is not allowed in this task.
+ * Возвращает ближайшее по величине целое число, состоящее из цифр данного натурального числа.
+ * Если такого числа нет, возвращается исходное число.
+ * Использование методов класса String в этой задаче запрещено.
  *
  * @example:
  * 12345    => 12354
