@@ -347,8 +347,47 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const spiralMatrix = [];
+  let row = 0;
+  let column = 0;
+  let rowLast = size - 1;
+  let columnLast = size - 1;
+  let fill = 1;
+
+  for (let i = 0; i < size; i += 1) spiralMatrix[i] = [];
+
+  while (column <= columnLast && row <= rowLast) {
+    for (let j = column; j <= columnLast; j += 1) {
+      spiralMatrix[row][j] = fill;
+      fill += 1;
+    }
+
+    row += 1;
+
+    for (let i = row; i <= rowLast; i += 1) {
+      spiralMatrix[i][columnLast] = fill;
+      fill += 1;
+    }
+
+    columnLast -= 1;
+
+    for (let j = columnLast; j >= column; j -= 1) {
+      spiralMatrix[rowLast][j] = fill;
+      fill += 1;
+    }
+
+    rowLast -= 1;
+
+    for (let i = rowLast; i >= row; i -= 1) {
+      spiralMatrix[i][column] = fill;
+      fill += 1;
+    }
+
+    column += 1;
+  }
+
+  return spiralMatrix;
 }
 
 /**
@@ -495,8 +534,33 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const array = [];
+
+  for (let i = number; i > 0; i = Math.floor(i / 10)) {
+    array.unshift(i % 10);
+  }
+
+  let indexOne = array.length - 2;
+
+  for (let j = indexOne; j >= 0 && array[j] >= array[j + 1]; j -= 1) {
+    indexOne -= 1;
+  }
+
+  if (indexOne < 0) return number;
+
+  let indexTwo = array.length - 1;
+
+  while (array[indexTwo] <= array[indexOne]) {
+    indexTwo -= 1;
+  }
+
+  const tempor = array[indexOne];
+  array[indexOne] = array[indexTwo];
+  array[indexTwo] = tempor;
+  const order = array.splice(indexOne + 1);
+  order.sort((a, b) => (a > b ? 1 : -1));
+  return Number([...array, ...order].join(''));
 }
 
 module.exports = {
